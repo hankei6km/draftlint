@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 // import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 // import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 import Box from '@material-ui/core/Box';
@@ -82,7 +82,9 @@ const List = ({
                   alt={`thumb for ${item.title}`}
                 />
               ) : (
-                <Box style={{ height: 180 }}>DDDDDD</Box>
+                <Box style={{ height: 180 }}>
+                  <Typography variant="body1">NO IMAGE</Typography>
+                </Box>
               )}
               <GridListTileBar title={item.title} titlePosition="bottom" />
             </Link>
