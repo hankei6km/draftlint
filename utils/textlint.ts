@@ -47,15 +47,15 @@ export function getTextlintKernelOptions(
     {
       presetId: 'ja-technical-writing',
       preset: require('textlint-rule-preset-ja-technical-writing')
-    }
+    },
     // {
     //   presetId: 'ja-spacing',
     //   preset: require('textlint-rule-preset-ja-spacing')
     // },
-    // {
-    //   presetId: 'jtf-style',
-    //   preset: require('textlint-rule-preset-jtf-style')
-    // }
+    {
+      presetId: 'jtf-style',
+      preset: require('textlint-rule-preset-jtf-style')
+    }
   ];
   const _rules = rules || [
     {
@@ -64,56 +64,56 @@ export function getTextlintKernelOptions(
       options: {
         space: 'always'
       }
-    },
+    }
     // {
     //   // 'jtf-style/2.1.2.漢字': true,
     //   ruleId: 'jtf-style-2.1.2',
     //   rule: require('textlint-rule-preset-jtf-style/lib/2.1.2')
     // },
-    {
-      // 'jtf-style/2.1.6.カタカナの長音': true
-      ruleId: 'jtf-style-2.1.6',
-      rule: require('textlint-rule-preset-jtf-style/lib/2.1.6')
-    },
+    // {
+    //   // 'jtf-style/2.1.6.カタカナの長音': true
+    //   ruleId: 'jtf-style-2.1.6',
+    //   rule: require('textlint-rule-preset-jtf-style/lib/2.1.6')
+    // },
     // {
     //   //'jtf-style/2.2.1.ひらがなと漢字の使い分け': true
     //   ruleId: 'jtf-style-2.2.1',
     //   rule: require('textlint-rule-preset-jtf-style/lib/2.2.1')
     // },
-    {
-      //'jtf-style/2.1.8.算用数字': true
-      ruleId: 'jtf-style-2.1.8',
-      rule: require('textlint-rule-preset-jtf-style/lib/2.1.8')
-    },
-    {
-      //'jtf-style/3.3.かっこ類と隣接する文字の間のスペース': true
-      ruleId: 'jtf-style-3.3',
-      rule: require('textlint-rule-preset-jtf-style/lib/3.3')
-    },
+    // {
+    //   //'jtf-style/2.1.8.算用数字': true
+    //   ruleId: 'jtf-style-2.1.8',
+    //   rule: require('textlint-rule-preset-jtf-style/lib/2.1.8')
+    // },
+    // {
+    //   //'jtf-style/3.3.かっこ類と隣接する文字の間のスペース': true
+    //   ruleId: 'jtf-style-3.3',
+    //   rule: require('textlint-rule-preset-jtf-style/lib/3.3')
+    // }
     // {
     //   ruleId: 'no-synonyms',
     //   rule: require('@textlint-ja/textlint-rule-no-synonyms').default
     // },
-    {
-      ruleId: 'en-spell',
-      rule: require('textlint-rule-en-spell').default
-    }
+    // {
+    //   ruleId: 'en-spell',
+    //   rule: require('textlint-rule-en-spell').default
+    // }
   ];
   // ruleOptions の  key は preset の rule に対して option を指定する場合は
   // 'japanese-???/rurleId' のように指定する.
   // (オブジェクトの階層ではなく '/' で区切る)
   const _ruleOptions = ruleOptions || {
-    'ja-technical-writing/no-exclamation-question-mark': false
+    'ja-technical-writing/no-exclamation-question-mark': false,
     // 'ja-spacing/ja-space-between-half-and-full-width': {
     //   space: 'always'
     // },
-    // 'jtf-style/3.1.1.全角文字と半角文字の間': false,
-    // 'jtf-style/4.2.7.コロン(：)': false,
-    // 'jtf-style/4.3.1.丸かっこ（）': false,
-    // 'jtf-style/2.1.2.漢字': true,
-    // 'jtf-style/2.1.5.カタカナ': true, // 'textlint-rule-preset-ja-technical-writing' に同様のルール.
-    // 'jtf-style/2.1.6.カタカナの長音': true,
-    // 'jtf-style/2.2.1.ひらがなと漢字の使い分け': true
+    'jtf-style/3.1.1.全角文字と半角文字の間': false,
+    'jtf-style/4.2.7.コロン(：)': false,
+    'jtf-style/4.3.1.丸かっこ（）': false,
+    'jtf-style/2.1.2.漢字': true,
+    'jtf-style/2.1.5.カタカナ': false, // 'textlint-rule-preset-ja-technical-writing' に同様のルール.
+    'jtf-style/2.1.6.カタカナの長音': true,
+    'jtf-style/2.2.1.ひらがなと漢字の使い分け': true
   };
   const _filterRules = filterRules || [
     {
