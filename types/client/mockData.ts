@@ -1,4 +1,3 @@
-import { readFileSync } from 'fs';
 import { PagesContents, PagesList } from './contentTypes';
 
 const mockDataPagesContents: PagesContents['contents'] = [
@@ -78,7 +77,10 @@ const mockDataDocsContents: PagesContents['contents'] = [
     title: 'プレビューモードを試す',
     html:
       process.env.NODE_ENV === 'development'
-        ? readFileSync('docs/try-it.html').toString('utf-8').replace(/\n/g, '')
+        ? require('fs')
+            .readFileSync('docs/try-it.html')
+            .toString('utf-8')
+            .replace(/\n/g, '')
         : '',
     mainVisual: {
       url:
