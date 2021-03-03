@@ -89,15 +89,15 @@ export function getTextlintKernelOptions(
       //'jtf-style/3.3.かっこ類と隣接する文字の間のスペース': true
       ruleId: 'jtf-style-3.3',
       rule: require('textlint-rule-preset-jtf-style/lib/3.3')
-    },
+    }
     // {
     //   ruleId: 'no-synonyms',
     //   rule: require('@textlint-ja/textlint-rule-no-synonyms').default
     // },
-    {
-      ruleId: 'en-spell',
-      rule: require('textlint-rule-en-spell').default
-    }
+    // {
+    //   ruleId: 'en-spell',
+    //   rule: require('textlint-rule-en-spell').default
+    // }
   ];
   // ruleOptions の  key は preset の rule に対して option を指定する場合は
   // 'japanese-???/rurleId' のように指定する.
