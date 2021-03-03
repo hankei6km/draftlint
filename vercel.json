@@ -1,0 +1,16 @@
+{
+  "functions": {
+    "pages/index.tsx": {
+      "memory": 1024,
+      "maxDuration": 10
+    },
+    "pages/docs/index.tsx": {
+      "memory": 1024,
+      "maxDuration": 10
+    },
+    "pages/docs/*.tsx": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  }
+}
