@@ -74,12 +74,11 @@ export async function textLintInHtml(
   // https://github.com/mobilusoss/textlint-browser-runner/tree/master/packages/textlint-bundler
   const kernel = new TextlintKernel();
 
-  const _options = getTextlintKernelOptions();
   const results = [
     await kernel.lintText(
       html,
       // todo: options(presets など)は SiteServerSideConfig で定義できるようにする.
-      options || _options
+      options || getTextlintKernelOptions()
     )
   ];
   if (results && results.length > 0 && results[0].messages.length > 0) {
