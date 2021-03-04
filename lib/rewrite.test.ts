@@ -21,7 +21,7 @@ describe('rewriteCode()', () => {
       .use(rewriteCode())
       .run();
     expect(html).toEqual(
-      '<p>test1</p><pre><code class="hljs"><span class="hljs-attribute">const a</span>=1;</code></pre><p>test2</p>'
+      '<p>test1</p><pre><code class="hljs"><span class="hljs-keyword">const</span> a=<span class="hljs-number">1</span>;</code></pre><p>test2</p>'
     );
   });
 });
