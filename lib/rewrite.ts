@@ -9,7 +9,25 @@ type rewritePlug = ($: cheerio.Root) => Error | null;
 export function rewriteCode(): rewritePlug {
   return ($) => {
     $('pre code').each((_idx, elm) => {
-      const result = hljs.highlightAuto($(elm).text());
+      const result = hljs.highlightAuto($(elm).text(), [
+        // codeblock で class 名が指定できないと(さらに一部抜粋だと)
+        // 認識率は高くないので絞る.
+        // https://github.com/highlightjs/highlight.js/blob/master/SUPPORTED_LANGUAGES.md
+        'typescript',
+        //'tsx',
+        'json',
+        'yml',
+        'yaml',
+        'html',
+        'css',
+        'javascript',
+        'jsx',
+        'shell',
+        'console',
+        'bash',
+        'sh',
+        'zsh'
+      ]);
       $(elm).html(result.value);
       $(elm).addClass('hljs');
     });
