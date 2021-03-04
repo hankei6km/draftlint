@@ -6,12 +6,7 @@ import Link from '../../components/Link';
 import { PageData } from '../../types/pageTypes';
 import { getAllPagesIds, getPagesData } from '../../lib/pages';
 
-export default function Docs({
-  pageData
-}: {
-  pageData: PageData;
-  preview: boolean;
-}) {
+export default function Docs({ pageData }: { pageData: PageData }) {
   // const classes = useStyles();
   if (pageData === undefined || !pageData.title) {
     return <ErrorPage statusCode={404} />;
@@ -37,8 +32,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const pageData = await getPagesData('docs', context);
   return {
     props: {
-      pageData,
-      preview: context.preview ? context.preview : null
+      pageData
     }
   };
 };
