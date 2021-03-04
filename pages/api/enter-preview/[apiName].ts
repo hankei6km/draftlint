@@ -19,8 +19,11 @@ const handler = async (
         case 'home':
           location = `/`;
           break;
-        case 'dosc':
-          location = `/dosc/`;
+        case 'docs':
+          location = `/docs`;
+          break;
+        case 'about':
+          location = `/about`;
           break;
       }
       break;
