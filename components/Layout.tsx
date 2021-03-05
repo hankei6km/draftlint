@@ -252,10 +252,18 @@ const Layout = ({
       <footer className={classes.footer}>
         <Container maxWidth="sm" disableGutters>
           <Typography variant="body1">Copyright (c) 2021 hankei6km</Typography>
-          <IconButton component={Link} href="https://github.com/hankei6km">
+          <IconButton
+            aria-label="link to GitHub account"
+            component={Link}
+            href="https://github.com/hankei6km"
+          >
             <GitHubIcon />
           </IconButton>
-          <IconButton component={Link} href="https://twitter.com/hankei6km">
+          <IconButton
+            aria-label="link to Twitter account"
+            component={Link}
+            href="https://twitter.com/hankei6km"
+          >
             <TwitterIcon />
           </IconButton>
           <Box className={classes['DescLists']}>
