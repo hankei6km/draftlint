@@ -8,9 +8,9 @@ const mockDataPagesContents: PagesContents['contents'] = [
     publishedAt: '2021-02-18T04:06:49.846Z',
     revisedAt: '2021-02-18T04:06:49.846Z',
     title: 'Home',
-    description: 'textlint と Next.js ではじめる静的サイトの校正支援',
+    description: 'textlint と Next.js で始める静的サイトの校正支援',
     html:
-      '<h1 id="h2ece168cea">textlint と Next.js ではじめる静的サイトの校正支援</h1><p>CodeSandbox で動作させるためのモックデータで表示しています。</p>',
+      '<h1 id="h2ece168cea">textlint と Next.js で始める静的サイトの校正支援</h1><p>CodeSandbox で動作させるためのモックデータで表示しています。</p>',
     mainVisual: {
       url:
         'https://images.microcms-assets.io/assets/71827cdd928b42fbab94cd30dfbc2a85/1dd63bd0bb9c4345bb4e567fc68add4d/draftlint-logo.png',
