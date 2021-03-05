@@ -5,7 +5,10 @@ import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import TwitterIcon from '@material-ui/icons/Twitter';
 import Notification from './Notification';
 import { PageData } from '../types/pageTypes';
 import { ApiNameArticle } from '../types/apiName';
@@ -112,7 +115,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     padding: theme.spacing(1),
     backgroundColor: theme.palette.primary.main,
-    color: theme.palette.getContrastText(theme.palette.primary.main)
+    color: theme.palette.getContrastText(theme.palette.primary.main),
+    '& .MuiIconButton-label': {
+      color: theme.palette.getContrastText(theme.palette.primary.main)
+    }
   },
   DescLists: {
     display: 'grid',
@@ -245,9 +251,13 @@ const Layout = ({
       </Container>
       <footer className={classes.footer}>
         <Container maxWidth="sm" disableGutters>
-          <Typography component="span" variant="body1">
-            Copyright (c) 2021 hankei6km
-          </Typography>
+          <Typography variant="body1">Copyright (c) 2021 hankei6km</Typography>
+          <IconButton component={Link} href="https://github.com/hankei6km">
+            <GitHubIcon />
+          </IconButton>
+          <IconButton component={Link} href="https://twitter.com/hankei6km">
+            <TwitterIcon />
+          </IconButton>
           <Box className={classes['DescLists']}>
             <Box className={classes['DescList-outer']}>
               <DescList
