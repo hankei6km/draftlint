@@ -16,7 +16,6 @@ import Link from './Link';
 import NavMain from './NavMain';
 import NavBreadcrumbs from './NavBreadcrumbs';
 import DateUpdated from './DateUpdated';
-import DescList from './DescList';
 
 const siteName = 'draftlint';
 
@@ -109,39 +108,32 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(1),
       borderLeft: `6px solid ${theme.palette.secondary.main}`,
       backgroundColor: theme.palette.divider
+    },
+    '& article > .embed.youtube': {
+      // https://qiita.com/0084ken/items/e7d35d2a8eb507f4d59c
+      // https://qiita.com/FJHoshi/items/11684c352aebc8d4f87b
+      position: 'relative',
+      width: '100%',
+      paddingBottom: '56.25%',
+      height: 0,
+      '& iframe': {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%'
+      }
     }
   },
   footer: {
     marginTop: theme.spacing(1),
     padding: theme.spacing(1),
+    minHeight: 200,
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.getContrastText(theme.palette.primary.main),
     '& .MuiIconButton-label': {
       color: theme.palette.getContrastText(theme.palette.primary.main)
     }
-  },
-  DescLists: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(6, 1fr)',
-    // gridGap: theme.spacing(3)
-    [theme.breakpoints.up('sm')]: {
-      gridTemplateColumns: 'repeat(12, 1fr)'
-    },
-    marginTop: theme.spacing(1)
-  },
-  'DescList-outer': {
-    gridColumnEnd: 'span 6'
-  },
-  'DescList-root': {
-    marginTop: theme.spacing(0.5),
-    marginBottom: theme.spacing(0.5),
-    color: theme.palette.getContrastText(theme.palette.primary.main)
-  },
-  'DescList-description': {
-    marginLeft: theme.spacing(2)
-    // [theme.breakpoints.up('sm')]: {
-    //   marginLeft: theme.spacing(3)
-    // }
   }
 }));
 
@@ -266,77 +258,6 @@ const Layout = ({
           >
             <TwitterIcon />
           </IconButton>
-          <Box className={classes['DescLists']}>
-            <Box className={classes['DescList-outer']}>
-              <DescList
-                classes={{ ...classes }}
-                items={[
-                  {
-                    term: 'Template',
-                    descs: [
-                      {
-                        label: 'TypeScript Next.js example',
-                        href:
-                          'https://github.com/vercel/next.js/tree/canary/examples/with-typescript'
-                      },
-                      {
-                        label: 'Material UI Next.js example',
-                        href:
-                          'https://github.com/mui-org/material-ui/tree/next/examples/nextjs'
-                      }
-                    ]
-                  }
-                ]}
-              />
-            </Box>
-            <Box className={classes['DescList-outer']}>
-              <DescList
-                classes={{ ...classes }}
-                items={[
-                  {
-                    term: 'Library',
-                    descs: [
-                      {
-                        label: 'textlint',
-                        href: 'https://textlint.github.io/'
-                      },
-                      {
-                        label: 'Next.js',
-                        href: 'https://nextjs.org/'
-                      },
-                      {
-                        label: 'and more'
-                      }
-                    ]
-                  }
-                ]}
-              />
-            </Box>
-            <Box className={classes['DescList-outer']}>
-              <DescList
-                classes={{ ...classes }}
-                items={[
-                  {
-                    term: 'Environment',
-                    descs: [
-                      {
-                        label: 'Vercel',
-                        href: 'https://vercel.com/'
-                      },
-                      {
-                        label: 'microCMS',
-                        href: 'https://microcms.io/'
-                      },
-                      {
-                        label: 'CodeSandbox',
-                        href: 'https://codesandbox.io/'
-                      }
-                    ]
-                  }
-                ]}
-              />
-            </Box>
-          </Box>
         </Container>
       </footer>
       {notification && notification.title && (

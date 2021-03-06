@@ -1,4 +1,4 @@
-import { rewrite, rewriteCode } from './rewrite';
+import { rewrite, rewriteCode, rewriteEmbed } from './rewrite';
 
 describe('rewrite()', () => {
   it('should chains plugs', () => {
@@ -10,6 +10,27 @@ describe('rewrite()', () => {
     expect(p1.mock.calls[0][0]('body').html()).toEqual('<p>test</p>');
     expect(p2).toHaveBeenCalledTimes(1);
     expect(p2.mock.calls[0][0]('body').html()).toEqual('<p>test</p>');
+  });
+});
+
+describe('rewriteEmbed()', () => {
+  it('should wrap iframe by div', () => {
+    const html = rewrite('<p>test1</p><iframe></iframe><p>test2</p>')
+      .use(rewriteEmbed())
+      .run();
+    expect(html).toEqual(
+      '<p>test1</p><div class="embed"><iframe></iframe></div><p>test2</p>'
+    );
+  });
+  it('should wrap iframe by div(youtube)', () => {
+    const html = rewrite(
+      '<p>test1</p><iframe title="YouTube embed"></iframe><p>test2</p>'
+    )
+      .use(rewriteEmbed())
+      .run();
+    expect(html).toEqual(
+      '<p>test1</p><div class="embed youtube"><iframe title="YouTube embed"></iframe></div><p>test2</p>'
+    );
   });
 });
 
