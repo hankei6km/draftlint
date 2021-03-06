@@ -6,6 +6,22 @@ import hljs from 'highlight.js';
 // こちらは主に見た目に関連する処理を行う.
 type rewritePlug = ($: cheerio.Root) => Error | null;
 
+export function rewriteEmbed(): rewritePlug {
+  return ($) => {
+    // $('body > iframe').wrap('<div class="embed"></div>');
+    $('body > iframe').each((_idx, elm) => {
+      const $div = cheerio.load('<div class="embed"></div>')('div');
+      const $elm = $(elm);
+      if ($elm.attr('title') === 'YouTube embed') {
+        // TODO: アスペクト比を makeStyle に渡す方法.
+        $div.addClass('youtube');
+      }
+      $elm.wrap($div);
+    });
+    return null;
+  };
+}
+
 export function rewriteCode(): rewritePlug {
   return ($) => {
     $('pre code').each((_idx, elm) => {

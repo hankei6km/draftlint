@@ -108,6 +108,21 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(1),
       borderLeft: `6px solid ${theme.palette.secondary.main}`,
       backgroundColor: theme.palette.divider
+    },
+    '& article > .embed.youtube': {
+      // https://qiita.com/0084ken/items/e7d35d2a8eb507f4d59c
+      // https://qiita.com/FJHoshi/items/11684c352aebc8d4f87b
+      position: 'relative',
+      width: '100%',
+      paddingBottom: '56.25%',
+      height: 0,
+      '& iframe': {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%'
+      }
     }
   },
   footer: {
@@ -119,29 +134,6 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiIconButton-label': {
       color: theme.palette.getContrastText(theme.palette.primary.main)
     }
-  },
-  DescLists: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(6, 1fr)',
-    // gridGap: theme.spacing(3)
-    [theme.breakpoints.up('sm')]: {
-      gridTemplateColumns: 'repeat(12, 1fr)'
-    },
-    marginTop: theme.spacing(1)
-  },
-  'DescList-outer': {
-    gridColumnEnd: 'span 6'
-  },
-  'DescList-root': {
-    marginTop: theme.spacing(0.5),
-    marginBottom: theme.spacing(0.5),
-    color: theme.palette.getContrastText(theme.palette.primary.main)
-  },
-  'DescList-description': {
-    marginLeft: theme.spacing(2)
-    // [theme.breakpoints.up('sm')]: {
-    //   marginLeft: theme.spacing(3)
-    // }
   }
 }));
 
