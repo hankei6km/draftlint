@@ -85,8 +85,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.main
     },
     '& article > p > img, article > p > a > img': {
-      width: '100%'
-      // objectFit: 'cover'
+      width: '100%',
+      height: '100%'
+      // objectFit: 'contain'
     },
     '& article > ul': {
       paddingLeft: theme.spacing(3),

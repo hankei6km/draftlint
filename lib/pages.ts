@@ -13,7 +13,7 @@ import { PageData, blankPageData } from '../types/pageTypes';
 import { applyPreviewDataToIdQuery } from './preview';
 import { getTitleAndContent } from './html';
 import { textLintInHtml } from './draftlint';
-import { rewrite, rewriteEmbed, rewriteCode } from './rewrite';
+import { rewrite, rewriteEmbed, rewriteCode, rewriteImg } from './rewrite';
 import { ApiNameArticle } from '../types/apiName';
 import { getTextlintKernelOptions } from '../utils/textlint';
 // import { getTextlintKernelOptions } from '../utils/textlint';
@@ -112,7 +112,11 @@ export async function getPagesData(
       updated: res.updatedAt,
       title: res.title,
       articleTitle,
-      html: rewrite(html).use(rewriteEmbed()).use(rewriteCode()).run(),
+      html: await rewrite(html)
+        .use(rewriteImg())
+        .use(rewriteEmbed())
+        .use(rewriteCode())
+        .run(),
       mainVisual: res.mainVisual?.url || '',
       description: res.description || ''
     };
