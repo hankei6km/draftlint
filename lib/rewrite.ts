@@ -43,14 +43,42 @@ export function rewriteEmbed(): rewritePlug {
   return async ($) => {
     // $('body > iframe').wrap('<div class="embed"></div>');
     $('body > iframe').each((_idx, elm) => {
-      const $div = cheerio.load('<div class="embed"></div>')('div');
+      const $div = cheerio.load('<div></div>')('div');
+      $div.addClass('embed');
       const $elm = $(elm);
       if ($elm.attr('title') === 'YouTube embed') {
-        // TODO: アスペクト比を makeStyle に渡す方法.
-        $div.addClass('youtube');
+        const s = $elm.attr('src')?.split('?', 2) || [];
+        const sq = new URLSearchParams(s[1]);
+        const url = sq.get('url');
+        if (url) {
+          const q = new URLSearchParams(url.split('?', 2)[1]);
+          const videoid = q.get('v');
+          if (videoid) {
+            const $lite = cheerio.load('<lite-youtube>')('lite-youtube');
+            $lite.attr('videoid', videoid);
+            $lite.attr('params', 'rel=0');
+            $div.addClass('youtube');
+            $lite.wrap($div);
+            $elm.replaceWith($lite.parent());
+            return;
+          }
+        }
       }
       $elm.wrap($div);
     });
+    // router と相性がよくない.
+    // if (loadLiteYoutube) {
+    //   const $script = cheerio.load('<script type="text/javascript"/>')(
+    //     'script'
+    //   );
+    //   //  _app で css を import している.
+    //   $script.text(
+    //     readFileSync(
+    //       'node_modules/lite-youtube-embed/src/lite-yt-embed.js'
+    //     ).toString('utf-8')
+    //   );
+    //   $('body').append($script);
+    // }
     return null;
   };
 }

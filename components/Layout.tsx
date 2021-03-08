@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { makeStyles } from '@material-ui/core';
+// import NoSsr from '@material-ui/core/NoSsr';
 import Head from 'next/head';
 import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
