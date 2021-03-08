@@ -48,12 +48,12 @@ describe('rewriteEmbed()', () => {
   });
   it('should wrap iframe by div(youtube)', async () => {
     const html = await rewrite(
-      '<p>test1</p><iframe title="YouTube embed"></iframe><p>test2</p>'
+      '<p>test1</p><iframe title="YouTube embed" src="test?url=test%3Fv%3Dabc"></iframe><p>test2</p>'
     )
       .use(rewriteEmbed())
       .run();
     expect(html).toEqual(
-      '<p>test1</p><div class="embed youtube"><iframe title="YouTube embed"></iframe></div><p>test2</p>'
+      '<p>test1</p><div class="embed youtube"><lite-youtube videoid="abc" params="rel=0"></lite-youtube></div><p>test2</p>'
     );
   });
 });

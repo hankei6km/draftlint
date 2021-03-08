@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../src/theme';
 import 'highlight.js/styles/hybrid.css';
+import 'lite-youtube-embed/src/lite-yt-embed.css';
 import { SnackbarProvider } from 'notistack';
 
 const useStyles = makeStyles((theme) => ({
@@ -39,6 +40,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
+        {/* lite-youtube-embed を適用すると Youtube を埋め込んだページで
+         server と browser で異なる内容になる */}
+        <script type="text/javascript" src="/scripts/lite-yt-embed.js"></script>
       </Head>
       <ThemeProvider theme={theme}>
         <SnackbarProvider
