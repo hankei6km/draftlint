@@ -153,19 +153,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.divider
     },
     '& article > .embed.youtube': {
-      // https://qiita.com/0084ken/items/e7d35d2a8eb507f4d59c
-      // https://qiita.com/FJHoshi/items/11684c352aebc8d4f87b
-      position: 'relative',
-      width: '100%',
-      paddingBottom: '56.25%',
-      height: 0,
-      '& iframe': {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%'
-      }
+      marginBottom: theme.spacing(1)
     }
   },
   footer: {
