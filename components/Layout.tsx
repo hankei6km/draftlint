@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
+// import { useRouter } from 'next/router';
 import { makeStyles } from '@material-ui/core';
 // import NoSsr from '@material-ui/core/NoSsr';
 import Head from 'next/head';
@@ -85,6 +86,46 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.getContrastText(theme.palette.primary.main),
       backgroundColor: theme.palette.primary.main
     },
+    '& article > .tocContainer': {
+      padding: theme.spacing(2),
+      // backgroundColor: theme.palette.divider,
+      // backgroundColor: theme.palette.primary.main,
+      border: `1px solid ${theme.palette.primary.main}`,
+      borderRadius: theme.shape.borderRadius,
+      '& .tocTitle': {
+        margin: theme.spacing(0, 0.5),
+        // marginTop: theme.spacing(0.5),
+        // marginBottom: theme.spacing(0.5),
+        // paddingLeft: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
+        borderBottom: `1px solid ${theme.palette.divider}`,
+        ...theme.typography.body1
+      },
+      // '&  ul': {
+      //   listStyle: 'none'
+      // },
+      // '& ul li::before': {
+      //   content: '\u200B'
+      // },
+      '& > nav > ul': {
+        color: theme.palette.primary.main,
+        paddingLeft: theme.spacing(3),
+        paddingRight: theme.spacing(1),
+        '& ul': {
+          paddingLeft: theme.spacing(2)
+        }
+      },
+      '& .tocItem': {
+        marginTop: theme.spacing(1),
+        '& > a': {
+          color: theme.palette.primary.main,
+          textDecorationLine: 'none',
+          '&:hover': {
+            textDecorationLine: 'underline'
+          }
+        }
+      }
+    },
     '& article > p > img, article > p > a > img': {
       width: '100%',
       height: '100%'
@@ -169,6 +210,7 @@ const Layout = ({
   notification
 }: Props) => {
   const classes = useStyles({ apiName, id });
+  // const router = useRouter();
   const avatarSrc =
     'https://images.microcms-assets.io/assets/71827cdd928b42fbab94cd30dfbc2a85/a651c3b80a624d78bcc84d08722773fd/draftlint-icon.png?fit64=Y3JvcA&h64=MTIw&w64=MTIw';
   const avatarSrcSet = getAvatarSrcSet(avatarSrc);
@@ -177,6 +219,35 @@ const Layout = ({
       ? `${title} | textlint in Next.js preview mode`
       : `${title} | draftlint | textlint in Next.js preview mode`;
   const ogImageUrl = mainVisual ? `${mainVisual}?${ogImageParamsStr}` : '';
+  useEffect(() => {
+    const handleClick = (e: Event) => {
+      const a = e.target as HTMLAnchorElement;
+      const to = document.querySelector(`${a.dataset['scrollTo']}`);
+      if (to) {
+        e.preventDefault();
+        window.history.pushState({}, '', `${a.dataset['scrollTo']}`);
+        // router.push(
+        //   {
+        //     path: router.asPath,
+        //     hash: `${a.dataset['scrollTo']}`,
+        //     query: router.query
+        //   },
+        //   undefined,
+        //   { scroll: false, shallow: false }
+        // );
+        to.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+    const a = document.querySelectorAll('.tocItem > a');
+    a.forEach((v) => {
+      v.addEventListener('click', handleClick, { capture: false });
+    });
+    return () => {
+      a.forEach((v) => {
+        v.removeEventListener('click', handleClick, { capture: false });
+      });
+    };
+  }, []);
   // header footer は https://github.com/hankei6km/my-starter-nextjs-typescript-material-ui-micro-cms-aspida に outer で記述だが、
   // 今回は直接記述.
   return (
