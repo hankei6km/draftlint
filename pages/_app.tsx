@@ -13,7 +13,7 @@ import { SnackbarProvider } from 'notistack';
 
 const useStyles = makeStyles((theme) => ({
   containerRoot: {
-    width: theme.breakpoints.values.md
+    width: theme.breakpoints.values.sm
   }
 }));
 

@@ -51,11 +51,12 @@ export function getPageHtml(title: string, html: string): string {
 }
 
 function _slideHeading($: cheerio.Root, h: number) {
+  const headding = `h${h}`;
   const slided = `h${h + 1}`;
-  $(`h${h}`).each((_idx, elm) => {
-    const $elm = $(elm);
-    const hs = cheerio.load(`<${slided}>${$elm.html()}</${slided}>`)(slided);
-    $elm.replaceWith(hs);
+  $(headding).each((_idx, elm) => {
+    if (elm.type === 'tag' && elm.tagName === headding) {
+      elm.tagName = slided;
+    }
   });
 }
 

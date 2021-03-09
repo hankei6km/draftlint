@@ -14,9 +14,9 @@ export function rewriteImg(): rewritePlug {
     // const ilen = $('img').length;
     // const p = new Array<() => Promise<void>>(ilen);
     const p: (() => Promise<void>)[] = [];
-    $('img').each((_idx, elm) => {
-      const $elm = $(elm);
-      const src = $elm.attr('src')?.split('?', 2)[0];
+    $('img').each((_idx, $elm) => {
+      const elm = $($elm);
+      const src = elm.attr('src')?.split('?', 2)[0];
       if (src) {
         p.push(async () => {
           const info = await imageInfo(src);
@@ -24,12 +24,12 @@ export function rewriteImg(): rewritePlug {
           if (info.width > 600) {
             const width = 600;
             const height = (info.height * 600) / info.width;
-            $elm.attr('width', `${width}`);
-            $elm.attr('height', `${height}`);
+            elm.attr('width', `${width}`);
+            elm.attr('height', `${height}`);
             const q = new URLSearchParams('');
             q.append('w', `${width}`);
             q.append('h', `${height}`);
-            $elm.attr('src', `${src}?${q.toString()}`);
+            elm.attr('src', `${src}?${q.toString()}`);
           }
         });
       }
@@ -38,33 +38,86 @@ export function rewriteImg(): rewritePlug {
     return null;
   };
 }
+export function rewriteToc(title: string): rewritePlug {
+  return async ($) => {
+    // heading はスライドさせてある前提(h2 が最上位).
+    const heddings = $('h3,h4');
+    if (heddings.length > 2) {
+      const tocTitle = cheerio.load('<h3></h3>')('h3');
+      tocTitle.text(title);
+      tocTitle.addClass('tocTitle');
+      tocTitle.attr('id', 'table-of-contents-navigation');
+      const $toc = cheerio.load('<section><nav><ul></ul></nav></section>');
+      const container = $toc('section');
+      container.addClass('tocContainer');
+      const nav = $toc('nav');
+      nav.prepend(tocTitle);
+      nav.attr('aria-labelledby', 'table-of-contents-navigation');
+      const tocList = $toc('ul');
+      let $h4items = cheerio.load('<ul></ul>');
+      let h4items = $h4items('ul');
+      heddings.each((_idx, $elm) => {
+        if ($elm.type === 'tag') {
+          const elm = $($elm);
+          const li = cheerio.load('<li></li>')('li');
+          const anchor = cheerio.load('<a></a>')('a');
+          anchor.text(elm.text());
+          anchor.attr('href', `#${elm.attr('id')}`);
+          anchor.attr('data-scroll-to', `#${elm.attr('id')}`);
+          li.html(anchor.parent().html() || '');
+          li.addClass('tocItem');
+          li.addClass(`tocItem-${$elm.tagName}`);
+          if ($elm.tagName === 'h4') {
+            h4items.append(li);
+          } else {
+            if (h4items.html()) {
+              tocList.children().last().append($h4items.html());
+            }
+            tocList.append(li);
+            $h4items = cheerio.load('<ul></ul>');
+            h4items = $h4items('ul');
+          }
+        }
+      });
+      if (h4items.html()) {
+        tocList.children().last().append($h4items.html());
+      }
+      // $toc('.tocItem-h4').wrapAll('<ul></ul>');
+      const ins = $('h3:first');
+      if (ins) {
+        $(container).insertBefore(ins);
+      }
+    }
+    return null;
+  };
+}
 
 export function rewriteEmbed(): rewritePlug {
   return async ($) => {
     // $('body > iframe').wrap('<div class="embed"></div>');
-    $('body > iframe').each((_idx, elm) => {
-      const $div = cheerio.load('<div></div>')('div');
-      $div.addClass('embed');
-      const $elm = $(elm);
-      if ($elm.attr('title') === 'YouTube embed') {
-        const s = $elm.attr('src')?.split('?', 2) || [];
+    $('body > iframe').each((_idx, $elm) => {
+      const div = cheerio.load('<div></div>')('div');
+      div.addClass('embed');
+      const elm = $($elm);
+      if (elm.attr('title') === 'YouTube embed') {
+        const s = elm.attr('src')?.split('?', 2) || [];
         const sq = new URLSearchParams(s[1]);
         const url = sq.get('url');
         if (url) {
           const q = new URLSearchParams(url.split('?', 2)[1]);
           const videoid = q.get('v');
           if (videoid) {
-            const $lite = cheerio.load('<lite-youtube>')('lite-youtube');
-            $lite.attr('videoid', videoid);
-            $lite.attr('params', 'rel=0');
-            $div.addClass('youtube');
-            $lite.wrap($div);
-            $elm.replaceWith($lite.parent());
+            const lite = cheerio.load('<lite-youtube>')('lite-youtube');
+            lite.attr('videoid', videoid);
+            lite.attr('params', 'rel=0');
+            div.addClass('youtube');
+            lite.wrap(div);
+            elm.replaceWith(lite.parent());
             return;
           }
         }
       }
-      $elm.wrap($div);
+      elm.wrap(div);
     });
     // router と相性がよくない.
     // if (loadLiteYoutube) {
@@ -85,8 +138,9 @@ export function rewriteEmbed(): rewritePlug {
 
 export function rewriteCode(): rewritePlug {
   return async ($) => {
-    $('pre code').each((_idx, elm) => {
-      const result = hljs.highlightAuto($(elm).text(), [
+    $('pre code').each((_idx, $elm) => {
+      const elm = $($elm);
+      const result = hljs.highlightAuto(elm.text(), [
         // codeblock で class 名が指定できないと(さらに一部抜粋だと)
         // 認識率は高くないので絞る.
         // https://github.com/highlightjs/highlight.js/blob/master/SUPPORTED_LANGUAGES.md
@@ -105,8 +159,8 @@ export function rewriteCode(): rewritePlug {
         'sh',
         'zsh'
       ]);
-      $(elm).html(result.value);
-      $(elm).addClass('hljs');
+      elm.html(result.value);
+      elm.addClass('hljs');
     });
     return null;
   };

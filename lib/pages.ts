@@ -13,13 +13,20 @@ import { PageData, blankPageData } from '../types/pageTypes';
 import { applyPreviewDataToIdQuery } from './preview';
 import { getTitleAndContent } from './html';
 import { textLintInHtml } from './draftlint';
-import { rewrite, rewriteEmbed, rewriteCode, rewriteImg } from './rewrite';
+import {
+  rewrite,
+  rewriteEmbed,
+  rewriteCode,
+  rewriteImg,
+  rewriteToc
+} from './rewrite';
 import { ApiNameArticle } from '../types/apiName';
 import { getTextlintKernelOptions } from '../utils/textlint';
 // import { getTextlintKernelOptions } from '../utils/textlint';
 
 const allIdsLimit = 120000;
 // const itemsPerPage = 10;
+const tocTitleLabel = '目次';
 
 export async function getSortedPagesData(
   apiName: ApiNameArticle,
@@ -114,6 +121,7 @@ export async function getPagesData(
       articleTitle,
       html: await rewrite(html)
         .use(rewriteImg())
+        .use(rewriteToc(tocTitleLabel))
         .use(rewriteEmbed())
         .use(rewriteCode())
         .run(),
