@@ -86,6 +86,12 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.getContrastText(theme.palette.primary.main),
       backgroundColor: theme.palette.primary.main
     },
+    '& article > :not(section) a': {
+      textDecorationLine: 'none',
+      '&:hover': {
+        textDecorationLine: 'underline'
+      }
+    },
     '& article > .tocContainer': {
       padding: theme.spacing(2),
       // backgroundColor: theme.palette.divider,
