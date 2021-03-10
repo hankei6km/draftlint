@@ -1,7 +1,6 @@
 {
   "apiFields": [
     {
-      "idValue": "_Gk6goBlI",
       "fieldId": "title",
       "name": "タイトル",
       "kind": "text",
