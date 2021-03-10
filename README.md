@@ -1,41 +1,50 @@
-# TypeScript Next.js example
+# draftlint
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
+「textlint と Next.js で始める静的サイトの校正支援」という題材で作成した実験サイト「draftlint」のソースリポジトリーです。
 
-## Deploy your own
 
-Deploy the example using [Vercel](https://vercel.com):
+## 概要
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/vercel/next.js/tree/canary/examples/with-typescript)
+リポジトリのソースを稼働させ、microCMS サービスと連携させると「CMS のエディターで入力した文章を Next.js のプレビューモードでチェックできる」サイトになります。
 
-## How to use it?
+![文章チェックの動作イメージ](misc/draftlint-microcms-vercel-2.gif)
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+詳細は [draftlint | textlint in Next.js preview mode](https://draftlint.vercel.app/) を参照してください。「microCMS + CodesadBox」の構成で試す手順等が記載されています。
 
-```bash
-npx create-next-app --example with-typescript with-typescript-app
-# or
-yarn create next-app --example with-typescript with-typescript-app
-```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/import?filter=next.js&utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+## デプロイ用の情報
 
-## Notes
+設定に必要な情報は以下のとおりです。具体的な設定方法についてはネットで検索してください(有名所のサービスを利用しているので情報はすぐに出てくるはずです)。
 
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
+### microCMS のサービス
 
-```
-npm install --save-dev typescript
-```
-
-To enable TypeScript's features, we install the type declarations for React and Node.
+- サービス名: 任意
+- API: `pages` と `docs` を作成(スキーマはこのリポジトリーの `misc/api_*.json` を使用)
+- コンテンツ: `pages` API にコンテンツ ID が `home` `docs` `about` 、`docs` API に任意のコンテンツが最低でも 1 つ必要です
+- 画面プレビュー: 各 API に以下の値を設定
 
 ```
-npm install --save-dev @types/react @types/react-dom @types/node
+https://<デプロイ先 URL>/api/enter-preview/<API 名 'page' or 'docs'>?slug={CONTENT_ID}&draftKey={DRAFT_KEY}&previewSecret=<任意の値>
 ```
 
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
 
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
+### CodeSandbox / Vercel の設定
 
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
+上記のサイトでは環境変数(secret)を設定することで CMS として microCMS をできるようになります。
+
+
+| 変数名                | 用途           | 設定内容
+| --------------------- | -------------- | ----------------------------------------------------------- |
+| API\_BASE\_URL        | GET API URL    | `https://<service>.microcms.io/` (末尾の `/` は必須) |
+| GET\_API\_KEY         | GET API KEY    | `********-****-****-****-************`                |
+| PREVIEW\_SECRET       | プレビュー PSK | 任意の値、画面プレビューに記述する値と合わせる     |
+| DISABLE\_MOCK\_CLIENT | モック無効化   | CodeSandbox で利用するときに "true" を設定します      |
+
+必須ではありませんが `GLOBAL_DRAFT_KEY` の設定もできます。
+
+## ライセンス
+
+MIT License
+
+Copyright (c) 2021 hankei6km
+
