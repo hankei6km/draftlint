@@ -120,6 +120,8 @@ export function getTextlintKernelOptions(
       ruleId: 'allowlist',
       rule: require('textlint-filter-rule-allowlist'),
       options: {
+        // ここに設定した単語はソースコード参照時に見えてしまうので、
+        // 登録内容には注意してください。
         allow: [
           'aspid',
           'html',
@@ -128,6 +130,7 @@ export function getTextlintKernelOptions(
           'Vercel',
           'VSCode',
           'webpack',
+          'あるある',
           'リッチエディタ'
         ]
       }
