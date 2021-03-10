@@ -1,7 +1,6 @@
 {
   "apiFields": [
     {
-      "idValue": "tv4Jaft-C",
       "fieldId": "title",
       "name": "タイトル",
       "kind": "text",
