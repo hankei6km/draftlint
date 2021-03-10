@@ -8,7 +8,7 @@ import { PagesList } from '../types/client/contentTypes';
 import { PageData } from '../types/pageTypes';
 import { getSortedPagesData, getPagesData } from '../lib/pages';
 
-// const useStyles = makeStyles(() => ({}));
+const listTitle = "ドキュメント"
 
 type Props = {
   pageData: PageData;
@@ -27,6 +27,7 @@ const IndexPage = ({ pageData, items }: Props) => {
       notification={pageData.notification}
     >
       <section>
+        <h3>{listTitle}</h3>
         <List items={items} />
       </section>
     </Layout>

@@ -154,6 +154,30 @@ const useStyles = makeStyles((theme) => ({
     },
     '& article > .embed.youtube': {
       marginBottom: theme.spacing(1)
+    },
+    '& > section': {
+      // children のセクション
+      '& h3': {
+        ...theme.typography.h6,
+        marginTop: theme.spacing(1),
+        paddingTop: theme.spacing(0.5),
+        paddingBottom: theme.spacing(0.5),
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
+        borderLeft: `6px solid ${theme.palette.primary.main}`,
+        backgroundColor: theme.palette.divider // ライトグレイぽい色は他にないかね
+        // background: `linear-gradient(to right, ${theme.palette.primary.main} ,#f0f0f0)`
+      },
+      '& h4': {
+        ...theme.typography.h6,
+        display: 'inline',
+        marginTop: theme.spacing(1),
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
+        // color: theme.palette.primary.contrastText,
+        color: theme.palette.getContrastText(theme.palette.primary.main),
+        backgroundColor: theme.palette.primary.main
+      }
     }
   },
   footer: {
